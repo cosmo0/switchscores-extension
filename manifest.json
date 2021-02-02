@@ -1,0 +1,29 @@
+{
+    "name": "Switch Scores",
+    "description": "Adds Switch reviews infos in Nintendo website",
+    "version": "1.0",
+    "manifest_version": 2,
+    "permissions": [
+        "activeTab",
+        "tabs",
+        "https://www.switchscores.com/",
+        "https://www.nintendo.co.uk/"
+    ],
+    "background": {
+        "persistent": true,
+        "scripts": [ "jquery.js", "utils.js", "background.js" ]
+    },
+    "content_scripts": 
+    [
+        {
+            "matches": [ "https://www.switchscores.com/games/*" ],
+            "js": [ "jquery.js", "utils.js", "switchscore.js" ],
+            "run_at": "document_idle"
+        },
+        {
+            "matches": [ "https://www.nintendo.co.uk/Games/*" ],
+            "js": [ "jquery.js", "utils.js", "nintendo.js" ],
+            "run_at": "document_idle"
+        }
+    ]
+  }
