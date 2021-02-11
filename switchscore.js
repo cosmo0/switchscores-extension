@@ -1,5 +1,5 @@
 // add style
-var style = document.createElement("style");
+let style = document.createElement("style");
 style.setAttribute("type", "text/css");
 style.textContent =
   "#screenshots { display: flex; flex-wrap: nowrap; overflow-x: auto; margin-bottom: 1rem; }" +
@@ -8,7 +8,7 @@ style.textContent =
 document.getElementsByTagName("head")[0].appendChild(style);
 
 // load screenshots
-var ninurl = $("a[href^='https://www.nintendo.co.uk/Games/']");
+let ninurl = $("a[href^='https://www.nintendo.co.uk/Games/']");
 if (ninurl && ninurl.length > 0) {
     console.log(ninurl);
 
@@ -18,15 +18,15 @@ if (ninurl && ninurl.length > 0) {
         url: ninurl.attr('href')
     },
     data => {
-        var html = $(data);
-        var screenshots = html.find('.mediagallery img');
+        let html = $(data);
+        let screenshots = html.find('.mediagallery img');
 
-        var imgContainer = $('<div id="screenshots"></div>').insertAfter($('h1').next('img').next('p'));
+        let imgContainer = $('<div id="screenshots"></div>').insertAfter($('h1').next('img').next('p'));
 
         screenshots.each((idx, item) => {
-            var img = $(item).removeAttr('class').removeAttr('data-xs').removeAttr('width');
+            let img = $(item).removeAttr('class').removeAttr('data-xs').removeAttr('width');
 
             imgContainer.append($('<div class="screen"></div>').append(img));
         });
-    });    
+    });
 }
