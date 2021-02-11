@@ -1,14 +1,27 @@
 {
     "name": "Switch Scores",
     "description": "Adds Switch reviews infos in Nintendo website",
-    "version": "1.0",
+    "version": "0.1",
     "manifest_version": 2,
+    "icons": { "48": "icon.png" },
+    "browser_action": {
+        "default_icon": "icon.png"
+    },
     "permissions": [
         "activeTab",
         "tabs",
         "https://www.switchscores.com/",
         "https://www.nintendo.co.uk/",
-        "https://www.nintendo.fr/"
+        "https://www.nintendo.fr/",
+        "https://www.nintendo.de/",
+        "https://www.nintendo.ch/",
+        "https://www.nintendo.at/",
+        "https://www.nintendo.be/",
+        "https://www.nintendo.es/",
+        "https://www.nintendo.nl/",
+        "https://www.nintendo.it/",
+        "https://www.nintendo.pt/",
+        "https://www.nintendo.co.za/"
     ],
     "background": {
         "persistent": true,
@@ -24,7 +37,19 @@
         {
             "matches": [
                 "https://www.nintendo.co.uk/Games/*",
-                "https://www.nintendo.fr/Jeux/*"
+                "https://www.nintendo.fr/Jeux/*",
+                "https://www.nintendo.de/Spiele/*",
+                "https://www.nintendo.ch/de/Spiele/*",
+                "https://www.nintendo.at/Spiele/*",
+                "https://www.nintendo.be/fr/Jeux/*",
+                "https://www.nintendo.ch/fr/Jeux/*",
+                "https://www.nintendo.es/Juegos/*",
+                "https://www.nintendo.nl/Games/*",
+                "https://www.nintendo.be/nl/Games/*",
+                "https://www.nintendo.it/Giochi/*",
+                "https://www.nintendo.ch/it/Giochi/*",
+                "https://www.nintendo.pt/Jogos/*",
+                "https://www.nintendo.co.za/Games/*"
             ],
             "js": [ "jquery.js", "utils.js", "nintendo.js" ],
             "run_at": "document_idle"
