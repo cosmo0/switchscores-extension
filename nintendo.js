@@ -1,5 +1,5 @@
 // add style
-let green = '#43ac6a', orange = '#e99002', red = '#f04124';
+let green = '#43ac6a', orange = '#e99002', red = '#f04124', noscore = '#5bc0de';
 let style = document.createElement("style");
 style.setAttribute("type", "text/css");
 style.textContent =
@@ -9,11 +9,13 @@ style.textContent =
   ".packshot-hires a .score.green { background-color: " + green + " }" +
   ".packshot-hires a .score.orange { background-color: " + orange + " }" +
   ".packshot-hires a .score.red { background-color: " + red + " }" +
+  ".packshot-hires a .score.noscore { background-color: " + noscore + " }" +
   // image
   ".packshot-hires img.scored { border: 5px solid white; padding: 0; }" +
   ".packshot-hires img.score-green { border-color: " + green + "; } " +
   ".packshot-hires img.score-orange { border-color: " + orange + "; } " +
   ".packshot-hires img.score-red { border-color: " + red + "; } " +
+  ".packshot-hires img.score-noscore { border-color: " + noscore + "; } " +
   // meta
   ".switchscore-meta { border: 1px solid #ccc; padding: 1rem; } " +
   ".switchscore-meta a { color: #008cba; } ";
@@ -35,24 +37,30 @@ if (urlParsed && urlParsed.length > 0) {
 
         if (!data) { return; }
 
+        // link container
+        let gameLink = $('<a href="' + data.game.url + '" target="_blank" class="center-block"></a>');
+        $('.packshot-hires').append(gameLink);
+
         // display score in image
-        if (data.game.rating_avg && data.game.rating_avg > 0) {
-            let rt = data.game.rating_avg;
-            let color = rt > 7.5 ? "green" : (rt > 5.5 ? "orange" : "red");
-
-            // link container
-            let gameLink = $('<a href="' + data.game.url + '" target="_blank" class="center-block"></a>');
-            $('.packshot-hires').append(gameLink);
-
-            // move image
-            $('.packshot-hires img')
-                .removeClass('img-responsive center-block')
-                .addClass('scored score-' + color)
-                .appendTo(gameLink);
-            
-            // add score
-            gameLink.append($('<div class="score ' + color + '">' + rt + '</div>'));
+        let rt = 0, color = 'noscore';
+        if (data.game.review_count && data.game.review_count > 2) {
+            // scored
+            rt = data.game.rating_avg;
+            color = rt > 7.5 ? "green" : (rt > 5.5 ? "orange" : "red");
+        } else {
+            // not scored
+            rt = data.game.review_count + '/3';
+            gameLink.attr('title', 'Needs at least 3 reviews to have a score');
         }
+
+        // move image
+        $('.packshot-hires img')
+            .removeClass('img-responsive center-block')
+            .addClass('scored score-' + color)
+            .appendTo(gameLink);
+        
+        // add score
+        gameLink.append($('<div class="score ' + color + '">' + rt + '</div>'));
 
         // create div to contain metadata
         let dataContainer = $('<div class="col-xs-12 col-sm-5 col-md-12 col-lg-12"></div>')
@@ -63,9 +71,9 @@ if (urlParsed && urlParsed.length > 0) {
         cont.append(ul);
 
         // insert metadata into the list
-        if (data.game.review_count) {
-            ul.append($('<li><a href="' + data.game.url + '" target="_blank">' + data.game.review_count + ' reviews</a></li>'));
-        }
+        ul.append($('<li><a href="' + data.game.url + '" target="_blank">'
+            + data.game.review_count + ' review' + (data.game.review_count === 1 ? '' : 's')
+            + (data.game.review_count === 0 ? ' (be the first!)' : '') + '</a></li>'));
         if (data.game.category) {
             ul.append($('<li><a href="https://www.switchscores.com/games/by-category/' + data.game.category.link_title + '" target="_blank">'
                 + 'Genre: ' + data.game.category.name + '</a></li>'));
