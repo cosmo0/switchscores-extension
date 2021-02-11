@@ -1,15 +1,13 @@
 {
     "name": "Switch Scores",
     "description": "Adds Switch reviews infos in Nintendo website",
-    "version": "0.1",
+    "version": "0.2",
     "manifest_version": 2,
     "icons": { "48": "icon.png" },
     "browser_action": {
         "default_icon": "icon.png"
     },
     "permissions": [
-        "activeTab",
-        "tabs",
         "https://www.switchscores.com/",
         "https://www.nintendo.co.uk/",
         "https://www.nintendo.fr/",
