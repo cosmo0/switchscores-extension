@@ -49,10 +49,12 @@ if (urlParsed && urlParsed.length > 0) {
             // scored
             rt = game.rating_avg;
             color = rt > 7.5 ? "green" : (rt > 5.5 ? "orange" : "red");
+        } else if (game.review_count > 0) {
+            // not ranked
+            rt = game.rating_avg + ' ?';
         } else {
             // not scored
-            rt = game.review_count + '/3';
-            gameLink.attr('title', 'Needs at least 3 reviews to have a score');
+            rt = '???';
         }
 
         // move image

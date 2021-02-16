@@ -1,7 +1,7 @@
 {
     "name": "Switch Scores",
     "description": "Adds Switch reviews infos in Nintendo website",
-    "version": "0.2",
+    "version": "0.3",
     "manifest_version": 2,
     "icons": { "48": "icon.png" },
     "browser_action": {
@@ -38,18 +38,38 @@
                 "https://www.nintendo.fr/Jeux/*",
                 "https://www.nintendo.de/Spiele/*",
                 "https://www.nintendo.ch/de/Spiele/*",
+                "https://www.nintendo.ch/fr/Jeux/*",
+                "https://www.nintendo.ch/it/Giochi/*",
                 "https://www.nintendo.at/Spiele/*",
                 "https://www.nintendo.be/fr/Jeux/*",
-                "https://www.nintendo.ch/fr/Jeux/*",
+                "https://www.nintendo.be/nl/Games/*",
                 "https://www.nintendo.es/Juegos/*",
                 "https://www.nintendo.nl/Games/*",
-                "https://www.nintendo.be/nl/Games/*",
                 "https://www.nintendo.it/Giochi/*",
-                "https://www.nintendo.ch/it/Giochi/*",
                 "https://www.nintendo.pt/Jogos/*",
                 "https://www.nintendo.co.za/Games/*"
             ],
             "js": [ "jquery.js", "nintendo.js" ],
+            "run_at": "document_idle"
+        },
+        {
+            "matches": [
+                "https://www.nintendo.co.uk/Search/*",
+                "https://www.nintendo.fr/Rechercher/*",
+                "https://www.nintendo.de/Suche-/*",
+                "https://www.nintendo.ch/de/Suche-/*",
+                "https://www.nintendo.ch/fr/Rechercher/*",
+                "https://www.nintendo.ch/it/Cerca/*",
+                "https://www.nintendo.at/Suche-/*",
+                "https://www.nintendo.be/fr/Rechercher/*",
+                "https://www.nintendo.be/nl/Zoeken/*",
+                "https://www.nintendo.es/Buscar/*",
+                "https://www.nintendo.nl/Zoeken/*",
+                "https://www.nintendo.it/Cerca/*",
+                "https://www.nintendo.pt/Pesquisar/*",
+                "https://www.nintendo.co.za/Search/*"
+            ],
+            "js": [ "jquery.js", "nintendo-search.js" ],
             "run_at": "document_idle"
         }
     ]
