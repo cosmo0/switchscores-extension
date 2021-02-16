@@ -22,11 +22,8 @@ style.textContent =
 document.getElementsByTagName("head")[0].appendChild(style);
 
 // parse URL to get ID
-let urlParser = /.*\-(\d*)\.html$/gi
-let urlParsed = urlParser.exec(window.location.href);
-if (urlParsed && urlParsed.length > 0) {
-    let id = urlParsed[1];
-
+let id = getIdFromUrl(window.location.href);
+if (id) {
     // call background script for cross-site calls: chromium.org/Home/chromium-security/extension-content-script-fetches
     chrome.runtime.sendMessage({
         contentScriptQuery: "querySwitchScores",
@@ -38,33 +35,20 @@ if (urlParsed && urlParsed.length > 0) {
         if (!data || data.length === 0) { return; }
 
         let game = data[0].game;
+        let score = buildScore(game);
 
         // link container
         let gameLink = $('<a href="' + game.url + '" target="_blank" class="center-block"></a>');
         $('.packshot-hires').append(gameLink);
 
-        // display score in image
-        let rt = 0, color = 'noscore';
-        if (game.review_count && game.review_count > 2) {
-            // scored
-            rt = game.rating_avg;
-            color = rt > 7.5 ? "green" : (rt > 5.5 ? "orange" : "red");
-        } else if (game.review_count > 0) {
-            // not ranked
-            rt = game.rating_avg + ' ?';
-        } else {
-            // not scored
-            rt = '???';
-        }
-
         // move image
         $('.packshot-hires img')
             .removeClass('img-responsive center-block')
-            .addClass('scored score-' + color)
+            .addClass('scored score-' + score.color)
             .appendTo(gameLink);
         
         // add score
-        gameLink.append($('<div class="score ' + color + '">' + rt + '</div>'));
+        gameLink.append($('<div class="score ' + score.color + '">' + score.rt + '</div>'));
 
         // create div to contain metadata
         let dataContainer = $('<div class="col-xs-12 col-sm-5 col-md-12 col-lg-12"></div>')

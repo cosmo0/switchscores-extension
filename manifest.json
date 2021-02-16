@@ -1,7 +1,7 @@
 {
     "name": "Switch Scores",
     "description": "Adds Switch reviews infos in Nintendo website",
-    "version": "0.3",
+    "version": "0.4",
     "manifest_version": 2,
     "icons": { "48": "icon.png" },
     "browser_action": {
@@ -23,13 +23,13 @@
     ],
     "background": {
         "persistent": true,
-        "scripts": [ "jquery.js", "background.js" ]
+        "scripts": [ "jquery.js", "utils.js", "background.js" ]
     },
     "content_scripts": 
     [
         {
             "matches": [ "https://www.switchscores.com/games/*" ],
-            "js": [ "jquery.js", "switchscore.js" ],
+            "js": [ "jquery.js", "utils.js", "switchscore.js" ],
             "run_at": "document_idle"
         },
         {
@@ -49,7 +49,7 @@
                 "https://www.nintendo.pt/Jogos/*",
                 "https://www.nintendo.co.za/Games/*"
             ],
-            "js": [ "jquery.js", "nintendo.js" ],
+            "js": [ "jquery.js", "utils.js", "nintendo.js" ],
             "run_at": "document_idle"
         },
         {
@@ -69,7 +69,7 @@
                 "https://www.nintendo.pt/Pesquisar/*",
                 "https://www.nintendo.co.za/Search/*"
             ],
-            "js": [ "jquery.js", "nintendo-search.js" ],
+            "js": [ "jquery.js", "utils.js", "nintendo-search.js" ],
             "run_at": "document_idle"
         }
     ]
