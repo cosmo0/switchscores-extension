@@ -23,13 +23,13 @@
     ],
     "background": {
         "persistent": true,
-        "scripts": [ "jquery.js", "utils.js", "background.js" ]
+        "scripts": [ "jquery.js", "background.js" ]
     },
     "content_scripts": 
     [
         {
             "matches": [ "https://www.switchscores.com/games/*" ],
-            "js": [ "jquery.js", "utils.js", "switchscore.js" ],
+            "js": [ "jquery.js", "switchscore.js" ],
             "run_at": "document_idle"
         },
         {
@@ -49,7 +49,7 @@
                 "https://www.nintendo.pt/Jogos/*",
                 "https://www.nintendo.co.za/Games/*"
             ],
-            "js": [ "jquery.js", "utils.js", "nintendo.js" ],
+            "js": [ "jquery.js", "nintendo.js" ],
             "run_at": "document_idle"
         }
     ]

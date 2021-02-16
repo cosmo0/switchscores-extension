@@ -35,21 +35,23 @@ if (urlParsed && urlParsed.length > 0) {
     data => {
         console.log(data);
 
-        if (!data) { return; }
+        if (!data || data.length === 0) { return; }
+
+        let game = data[0].game;
 
         // link container
-        let gameLink = $('<a href="' + data.game.url + '" target="_blank" class="center-block"></a>');
+        let gameLink = $('<a href="' + game.url + '" target="_blank" class="center-block"></a>');
         $('.packshot-hires').append(gameLink);
 
         // display score in image
         let rt = 0, color = 'noscore';
-        if (data.game.review_count && data.game.review_count > 2) {
+        if (game.review_count && game.review_count > 2) {
             // scored
-            rt = data.game.rating_avg;
+            rt = game.rating_avg;
             color = rt > 7.5 ? "green" : (rt > 5.5 ? "orange" : "red");
         } else {
             // not scored
-            rt = data.game.review_count + '/3';
+            rt = game.review_count + '/3';
             gameLink.attr('title', 'Needs at least 3 reviews to have a score');
         }
 
@@ -70,17 +72,19 @@ if (urlParsed && urlParsed.length > 0) {
         let ul = $('<ul></ul>');
         cont.append(ul);
 
-        // insert metadata into the list
-        ul.append($('<li><a href="' + data.game.url + '" target="_blank">'
-            + data.game.review_count + ' review' + (data.game.review_count === 1 ? '' : 's')
-            + (data.game.review_count === 0 ? ' (be the first!)' : '') + '</a></li>'));
-        if (data.game.category) {
-            ul.append($('<li><a href="https://www.switchscores.com/games/by-category/' + data.game.category.link_title + '" target="_blank">'
-                + 'Genre: ' + data.game.category.name + '</a></li>'));
+        // reviews count
+        ul.append($('<li><a href="' + game.url + '" target="_blank">'
+            + game.review_count + ' review' + (game.review_count === 1 ? '' : 's')
+            + (game.review_count === 0 ? ' (be the first!)' : '') + '</a></li>'));
+        // category/genre
+        if (game.category) {
+            ul.append($('<li><a href="https://www.switchscores.com/games/by-category/' + game.category.link_title + '" target="_blank">'
+                + 'Genre: ' + game.category.name + '</a></li>'));
         }
-        if (data.game.series) {
-            ul.append($('<li><a href="https://www.switchscores.com/games/by-series/' + data.game.series.link_title + '" target="_blank">'
-                + 'Series: ' + data.game.series.series + '</a></li>'));
+        // series
+        if (game.series) {
+            ul.append($('<li><a href="https://www.switchscores.com/games/by-series/' + game.series.link_title + '" target="_blank">'
+                + 'Series: ' + game.series.series + '</a></li>'));
         }
 
         // insert data in page
