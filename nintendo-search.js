@@ -17,15 +17,12 @@ style.textContent =
   ".search-app .results .searchresult_row img.scored.noscore { border-color: " + noscore + "; } ";
 document.getElementsByTagName("head")[0].appendChild(style);
 
-// parse URL to get ID
-let urlParser = /.*\-(\d*)\.html$/gi
-
 // launch queries upon search completion
 let searchTimeout;
 $('body').on('DOMNodeInserted', '.search-app .results .searchresult_row', (e) => {
     if ($(e.target).hasClass('searchresult_row')) {
         clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(queryScores, 500);
+        searchTimeout = setTimeout(queryScores, 250);
     }
 });
 
@@ -35,9 +32,9 @@ function queryScores() {
     // get all IDs in the search results
     let ids = [];
     $('.search-app .results .searchresult_row a').each((idx, link) => {
-        let urlParsed = urlParser.exec($(link).attr('href'));
-        if (urlParsed && urlParsed.length > 0) {
-            ids.push(urlParsed[1]);
+        let id = getIdFromUrl($(link).attr('href'));
+        if (id) {
+            ids.push(id);
         }
     });
 
@@ -56,27 +53,13 @@ function queryScores() {
 
             for (let i = 0; i < data.length; i++) {
                 let game = data[i].game,
-                    rt = 0,
-                    color = 'noscore',
-                    scored = false;
-                if (game.review_count && game.review_count > 2) {
-                    // scored
-                    rt = game.rating_avg;
-                    color = rt > 7.5 ? "green" : (rt > 5.5 ? "orange" : "red");
-                    scored = true;
-                } else if (game.review_count > 0) {
-                    // not ranked
-                    rt = game.rating_avg + ' ?';
-                    scored = true;
-                }
+                    score = buildScore(game);
 
                 // re-search for matching link
                 var link = $('.search-app .results .searchresult_row a[href$="' + game.eshop_europe_fs_id + '.html"]');
-                if (scored) {
-                    link.find('.page-title').prepend($('<div class="score ' + color + '">' + rt + '</div>'));
-                }
+                link.find('.page-title').prepend($('<div class="score ' + score.color + '">' + score.rt + '</div>'));
 
-                link.find('img').addClass('scored ' + color);
+                link.find('img').addClass('scored ' + score.color);
             }
         });
     }
