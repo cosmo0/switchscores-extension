@@ -22,7 +22,7 @@ style.textContent =
 document.getElementsByTagName("head")[0].appendChild(style);
 
 // parse URL to get ID
-let id = getIdFromUrl(window.location.href);
+let id = getIdFromUrl(window.location.pathname);
 if (id) {
     // call background script for cross-site calls: chromium.org/Home/chromium-security/extension-content-script-fetches
     chrome.runtime.sendMessage({
