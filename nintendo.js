@@ -1,24 +1,25 @@
 // add style
-let green = '#43ac6a', orange = '#e99002', red = '#f04124', noscore = '#5bc0de';
 let style = document.createElement("style");
 style.setAttribute("type", "text/css");
 style.textContent =
-  ".packshot-hires a { position: relative; display: inline-block; }" +
-  // score
-  ".packshot-hires a .score { position: absolute; bottom: 5px; left: 5px; color: #fff; padding: 0.25rem 1rem; font-size: 2rem; }" +
-  ".packshot-hires a .score.green { background-color: " + green + " }" +
-  ".packshot-hires a .score.orange { background-color: " + orange + " }" +
-  ".packshot-hires a .score.red { background-color: " + red + " }" +
-  ".packshot-hires a .score.noscore { background-color: " + noscore + " }" +
-  // image
-  ".packshot-hires img.scored { border: 5px solid white; padding: 0; }" +
-  ".packshot-hires img.score-green { border-color: " + green + "; } " +
-  ".packshot-hires img.score-orange { border-color: " + orange + "; } " +
-  ".packshot-hires img.score-red { border-color: " + red + "; } " +
-  ".packshot-hires img.score-noscore { border-color: " + noscore + "; } " +
-  // meta
-  ".switchscore-meta { border: 1px solid #ccc; padding: 1rem; } " +
-  ".switchscore-meta a { color: #008cba; } ";
+    ".packshot-hires a { position: relative; display: inline-block; }" +
+    // score
+    ".packshot-hires a .score { position: absolute; bottom: 5px; left: 5px; color: #fff; padding: 0.25rem 1rem; font-size: 2rem; }" +
+    // image
+    ".packshot-hires img.scored { border: 5px solid white; padding: 0; }" +
+    // meta
+    ".switchscore-meta { border: 1px solid #ccc; padding: 1rem; } " +
+    ".switchscore-meta a { color: #008cba; } ";
+
+// colors
+for (const c in colors) {
+    if (Object.hasOwnProperty.call(colors, c)) {
+        const color = colors[c];
+        style.textContent += ".packshot-hires a .score.score-" + c + " { background-color: " + color + " }" +
+            ".packshot-hires img.score-" + c + " { border-color: " + color + "; } ";
+    }
+}
+
 document.getElementsByTagName("head")[0].appendChild(style);
 
 // parse URL to get ID
@@ -48,7 +49,7 @@ if (id) {
             .appendTo(gameLink);
         
         // add score
-        gameLink.append($('<div class="score ' + score.color + '">' + score.rt + '</div>'));
+        gameLink.append($('<div class="score score-' + score.color + '" title="' + score.tooltip + '">' + score.rt + '</div>'));
 
         // create div to contain metadata
         let dataContainer = $('<div class="col-xs-12 col-sm-5 col-md-12 col-lg-12"></div>')
