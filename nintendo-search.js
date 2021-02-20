@@ -3,18 +3,19 @@ let green = '#43ac6a', orange = '#e99002', red = '#f04124', noscore = '#5bc0de';
 let style = document.createElement("style");
 style.setAttribute("type", "text/css");
 style.textContent =
-  // score
+  // score and image
   ".search-app .results .searchresult_row .page-title .score { display: inline-block; color: #fff; padding: 0.25rem 1rem; margin-right: 0.5rem; }" +
-  ".search-app .results .searchresult_row .page-title .score.green { background-color: " + green + " }" +
-  ".search-app .results .searchresult_row .page-title .score.orange { background-color: " + orange + " }" +
-  ".search-app .results .searchresult_row .page-title .score.red { background-color: " + red + " }" +
-  ".search-app .results .searchresult_row .page-title .score.noscore { background-color: " + noscore + " }" +
-  // image
-  ".search-app .results .searchresult_row img.scored { border: 5px solid white; padding: 0; }" +
-  ".search-app .results .searchresult_row img.scored.green { border-color: " + green + "; } " +
-  ".search-app .results .searchresult_row img.scored.orange { border-color: " + orange + "; } " +
-  ".search-app .results .searchresult_row img.scored.red { border-color: " + red + "; } " +
-  ".search-app .results .searchresult_row img.scored.noscore { border-color: " + noscore + "; } ";
+  ".search-app .results .searchresult_row img.scored { border: 5px solid white; padding: 0; margin: 0; }";
+
+// colors
+for (const c in colors) {
+    if (Object.hasOwnProperty.call(colors, c)) {
+        const color = colors[c];
+        style.textContent += ".search-app .results .searchresult_row .page-title .score.score-" + c + " { background-color: " + color + " }" +
+            ".search-app .results .searchresult_row img.scored.score-" + c + " { border-color: " + color + "; } ";
+    }
+}
+
 document.getElementsByTagName("head")[0].appendChild(style);
 
 // launch queries upon search completion
@@ -57,9 +58,9 @@ function queryScores() {
 
                 // re-search for matching link
                 var link = $('.search-app .results .searchresult_row a[href$="' + game.eshop_europe_fs_id + '.html"]');
-                link.find('.page-title').prepend($('<div class="score ' + score.color + '">' + score.rt + '</div>'));
+                link.find('.page-title').prepend($('<div class="score score-' + score.color + '" title="' + score.tooltip + '">' + score.rt + '</div>'));
 
-                link.find('img').addClass('scored ' + score.color);
+                link.find('img').addClass('scored score-' + score.color);
             }
         });
     }
