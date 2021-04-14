@@ -38,6 +38,12 @@ if (id) {
         let game = data[0].game;
         let score = buildScore(game);
 
+        // checkf if data has been processed (weird bug, script is run twice)
+        if ($('.packshot-hires.scored').length > 0) {
+            console.log('second trigger');
+            return;
+        }
+
         // link container
         let gameLink = $('<a href="' + game.url + '" target="_blank" class="center-block"></a>');
         $('.packshot-hires').append(gameLink);
