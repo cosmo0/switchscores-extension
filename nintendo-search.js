@@ -23,11 +23,19 @@ let searchTimeout;
 $('body').on('DOMNodeInserted', '.search-app .results .searchresult_row', (e) => {
     if ($(e.target).hasClass('searchresult_row')) {
         clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(queryScores, 250);
+        searchTimeout = setTimeout(queryScores, 300);
     }
 });
 
+let searched = false;
 function queryScores() {
+    if (searched) {
+        console.log('second search trigger, DOM modif took some time');
+        return;
+    }
+
+    searched = true;
+
     console.log('query scores');
 
     // get all IDs in the search results
@@ -49,7 +57,7 @@ function queryScores() {
             id: ids.join(',')
         },
         data => {
-            console.log(data);        
+            console.log('data', data);
             if (!data || data.length === 0) { return; }
 
             for (let i = 0; i < data.length; i++) {
@@ -58,8 +66,17 @@ function queryScores() {
 
                 // re-search for matching link
                 var link = $('.search-app .results .searchresult_row a[href$="' + game.eshop_europe_fs_id + '.html"]');
+
+                // check if score has already been inserted (weird bug, script is run twice)
+                if (link.find('.score').length > 0) {
+                    console.log('second trigger');
+                    break;
+                }
+
+                // add score number
                 link.find('.page-title').prepend($('<div class="score score-' + score.color + '" title="' + score.tooltip + '">' + score.rt + '</div>'));
 
+                // add image border
                 link.find('img').addClass('scored score-' + score.color);
             }
         });
