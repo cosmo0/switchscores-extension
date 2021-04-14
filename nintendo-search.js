@@ -1,5 +1,4 @@
 // add style
-let green = '#43ac6a', orange = '#e99002', red = '#f04124', noscore = '#5bc0de';
 let style = document.createElement("style");
 style.setAttribute("type", "text/css");
 style.textContent =
@@ -27,15 +26,7 @@ $('body').on('DOMNodeInserted', '.search-app .results .searchresult_row', (e) =>
     }
 });
 
-let searched = false;
 function queryScores() {
-    if (searched) {
-        console.log('second search trigger, DOM modif took some time');
-        return;
-    }
-
-    searched = true;
-
     console.log('query scores');
 
     // get all IDs in the search results

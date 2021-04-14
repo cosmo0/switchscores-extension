@@ -1,7 +1,7 @@
 {
     "name": "Switch Scores",
     "description": "Adds Switch reviews infos in Nintendo website",
-    "version": "0.5",
+    "version": "0.6",
     "manifest_version": 2,
     "icons": { "48": "icon.png" },
     "browser_action": {
@@ -70,6 +70,26 @@
                 "https://www.nintendo.co.za/Search/*"
             ],
             "js": [ "jquery.js", "utils.js", "nintendo-search.js" ],
+            "run_at": "document_idle"
+        },
+        {
+            "matches": [
+                "https://www.nintendo.co.uk/Official-UK-Store/Nintendo-eShop/Nintendo-eShop-Sale/*",
+                "https://www.nintendo.fr/My-Nintendo-Store/Nintendo-eShop/Offres-du-Nintendo-eShop/*",
+                "https://www.nintendo.de/My-Nintendo-Store/Nintendo-eShop/Nintendo-eShop-Aktion/*",
+                "https://www.nintendo.ch/de/My-Nintendo-Store/Nintendo-eShop/Nintendo-eShop-Aktion/*",
+                "https://www.nintendo.ch/fr/My-Nintendo-Store/Nintendo-eShop/Offres-du-Nintendo-eShop/*",
+                "https://www.nintendo.ch/it/My-Nintendo-Store/Nintendo-eShop/Promo-Nintendo-eShop/*",
+                "https://www.nintendo.at/My-Nintendo-Store/Nintendo-eShop/Nintendo-eShop-Aktion/*",
+                "https://www.nintendo.be/fr/My-Nintendo-Store/Nintendo-eShop/Offres-du-Nintendo-eShop/*",
+                "https://www.nintendo.be/nl/My-Nintendo-Store/Nintendo-eShop/Nintendo-eShop-actie/*",
+                "https://www.nintendo.es/My-Nintendo-Store/Nintendo-eShop/Ofertas-de-Nintendo-eShop/*",
+                "https://www.nintendo.nl/My-Nintendo-Store/Nintendo-eShop/Nintendo-eShop-actie/*",
+                "https://www.nintendo.it/My-Nintendo-Store/Nintendo-eShop/Promo-Nintendo-eShop/*",
+                "https://www.nintendo.pt/My-Nintendo-Store/Nintendo-eShop/Promocoes-da-Nintendo-eShop/*",
+                "https://www.nintendo.co.za/Shopping/Nintendo-eShop/Nintendo-eShop-Sale/*"
+            ],
+            "js": [ "jquery.js", "utils.js", "nintendo-eshop-promos.js" ],
             "run_at": "document_idle"
         }
     ]
