@@ -24,9 +24,9 @@ if (ninurl && ninurl.length > 0) {
         let imgContainer = $('<div id="screenshots"></div>').insertAfter($('h1').next('img').next('p'));
 
         screenshots.each((idx, item) => {
-            let img = $(item).removeAttr('class').removeAttr('data-xs').removeAttr('width');
+            let imgSrc = $(item).attr('data-xs');
 
-            imgContainer.append($('<div class="screen"></div>').append(img));
+            imgContainer.append($('<div class="screen"><img src="' + imgSrc + '" /></div>'));
         });
     });
 }
