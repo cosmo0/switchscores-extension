@@ -10,7 +10,7 @@ document.getElementsByTagName("head")[0].appendChild(style);
 // load screenshots
 let ninurl = $("a[href^='https://www.nintendo.co.uk/Games/']");
 if (ninurl && ninurl.length > 0) {
-    console.log(ninurl);
+    //console.log(ninurl);
 
     // call background script for cross-site calls: chromium.org/Home/chromium-security/extension-content-script-fetches
     chrome.runtime.sendMessage({
@@ -21,7 +21,7 @@ if (ninurl && ninurl.length > 0) {
         let html = $(data);
         let screenshots = html.find('.mediagallery img');
 
-        let imgContainer = $('<div id="screenshots"></div>').insertAfter($('h1').next('img').next('p'));
+        let imgContainer = $('<div id="screenshots"></div>').insertAfter($('h1').nextUntil('h2').last());
 
         screenshots.each((idx, item) => {
             let imgSrc = $(item).attr('data-xs');

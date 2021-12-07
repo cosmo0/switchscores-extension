@@ -1,7 +1,7 @@
 {
     "name": "Switch Scores",
     "description": "Adds Switch reviews infos in Nintendo website",
-    "version": "0.7",
+    "version": "0.8",
     "manifest_version": 2,
     "icons": { "48": "icon.png" },
     "browser_action": {
